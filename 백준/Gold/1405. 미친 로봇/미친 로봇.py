@@ -1,5 +1,7 @@
 def dfs(n,si,sj,sm):
     global ans
+    if sm == 0: # 가지치기 -> 0나온다는건 아예그방향으로 못가는 0 확률을 곱한거라 걍 바로 리턴
+        return
     if n == N:
         ans += sm   #0거르고 자리중복 없는 확률들만 더한다
         return
