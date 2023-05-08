@@ -1,0 +1,10 @@
+N, M = map(int, input().split())
+cards = list(map(int, input().split()))
+for _ in range(M):
+    min_card = min(cards)
+    cards.remove(min(cards))
+    sec_card = min(cards)
+    cards.remove(min(cards))
+    cards.append(min_card + sec_card)
+    cards.append(min_card + sec_card)
+print(sum(cards))
