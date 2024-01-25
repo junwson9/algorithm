@@ -1,15 +1,28 @@
-N, M = map(int, input().split())
-trees = list(map(int, input().split()))
-s = 1
-e = max(trees)
-while s <= e:
-    m = (s+e)//2
+import sys
+input = sys.stdin.readline
+N,M = map(int, input().split())
+lst = sorted(list(map(int, input().split())))
+mx = max(lst)
+def ok(n):
     sm = 0
-    for tree in trees:
-        if tree > m:
-            sm += (tree-m)
-    if sm < M:
-        e = m-1
+    for i in range(len(lst)):
+        if lst[i]-n <= 0:
+            continue
+        else:
+            sm += lst[i]-n
+    return sm >= M
+r = 0
+s = 0
+e = mx
+while s<=e:
+    mid = (s+e)//2
+    if ok(mid):
+        r = mid
+        s = mid+1
     else:
-        s = m+1
-print(e)
+        e = mid-1
+print(r)
+
+
+
+
