@@ -1,20 +1,21 @@
-def dfs(n,tmp):
+import sys
+input = sys.stdin.readline
+N,M = map(int, input().split())
+lst = sorted(list(map(int,input().split())))
+tmp = []
+v = [0]*N
+def dfs(n):
     if n == M:
-        ans.append(tmp)
+        print(*tmp)
         return
     for i in range(N):
         if v[i] == 0:
             v[i] = 1
-            dfs(n+1,tmp+[lst[i]])
+            tmp.append(lst[i])
+            dfs(n+1)
             v[i] = 0
+            tmp.pop()
+dfs(0)
 
 
-N,M = map(int, input().split())
-lst = list(map(int, input().split()))
-ans = []
-tmp = []
-v = [0]*N
-dfs(0,tmp)
-ans.sort()
-for a in ans:
-    print(*a)
+
