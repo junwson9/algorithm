@@ -1,19 +1,27 @@
-def dfs(n):
-    global cnt
-    if n == N:
-        cnt += 1
+import sys
+input = sys.stdin.readline
+N = int(input())
+lst = [0]*N
+ans = 0
+
+def check(row):
+    for n in range(row):
+        if lst[row] == lst[n] or abs(lst[n]-lst[row]) == row-n:
+            return False
+    return True
+
+
+
+def dfs(row):
+    global ans
+    if row == N:
+        ans += 1
         return
 
-    for j in range(N):
-        if v1[j] == 0 and v2[n+j] == 0 and v3[n-j] == 0:
-            v1[j]=v2[n+j]=v3[n-j]=1
-            dfs(n+1)
-            v1[j]=v2[n+j]=v3[n-j]=0
+    for col in range(N):
+        lst[row] = col
+        if check(row):
+            dfs(row+1)
 
-
-
-N = int(input())
-v1,v2,v3 = [[0]*(2*N+1) for _ in range(3)]
-cnt = 0
 dfs(0)
-print(cnt)
+print(ans)
