@@ -5,6 +5,7 @@ tree = {}
 for _ in range(N):
     root,left,right = input().split()
     tree[root] = [left,right]
+
 def preorder(root):
     if root != '.':
         print(root, end='')
