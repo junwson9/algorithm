@@ -42,6 +42,8 @@ def shoot(lst):
                             if copy_arr[ni][nj] == 0:
                                 copy_arr[ni][nj] = copy_arr[lst[i]][j]//4
                     copy_arr[lst[i]][j] = 0
+                    flag = 1
+
                 else:
                     copy_arr[lst[i]][j] = tmp
                     flag = 0
