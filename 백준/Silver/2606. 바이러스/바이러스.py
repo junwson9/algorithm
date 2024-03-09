@@ -1,31 +1,27 @@
-def dfs(s):
-    visit[s] = 1
-    global ans
-    while True:
-        for e in adj[s]:
-            if visit[e] == 0:
-                stk.append(s)
-                s = e
-                visit[s] = 1
-                ans += 1
-                break
-        else:
-            if stk:
-                s = stk.pop()
-            else:
-                break
-
-
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10**7)
 N = int(input())
-P = int(input())
-visit = [0]*(N+1)
-stk = []
-adj = [[] for _ in range(N+1)]
-for _ in range(P):
+M = int(input())
+adjL = [[] for _ in range(N+1)]
+for _ in range(M):
     s,e = map(int, input().split())
-    adj[s].append(e)
-    adj[e].append(s)
+    adjL[s].append(e)
+    adjL[e].append(s)
+v = [False]*(N+1)
+def dfs(n):
+    global cnt
+    v[n] = True
+    for i in adjL[n]:
+        if v[i]:
+            continue
+        dfs(i)
+        cnt += 1
 
-ans = 0
+
+cnt = 0
 dfs(1)
-print(ans)
+print(cnt)
+
+
+
