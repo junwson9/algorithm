@@ -1,23 +1,22 @@
-from  collections import deque
-def bfs(s):
-    global ans
+import sys
+from collections import deque
+input = sys.stdin.readline
+N,K = map(int, input().split())
+v = [0]*100001
+def bfs(n):
     q = deque()
-    q.append(s)
+    q.append(n)
     while q:
         t = q.popleft()
         if t == K:
-            ans = v[t]
             break
-        else:
-            for i in (t-1,t+1,t*2):
-                if (0<=i<=100000) and v[i] == 0:
-                    v[i] = v[t]+1
-                    q.append(i)
+        for i in (t+1,t-1,2*t):
+            if i < 0 or i > 100000:
+                continue
+            if v[i] != 0:
+                continue
+            q.append(i)
+            v[i] = v[t]+1
 
-
-N, K = map(int, input().split())
-v = [0]*100001
-v[N] = 0
-ans = 0
 bfs(N)
-print(ans)
+print(v[K])
