@@ -1,20 +1,24 @@
 import sys
-input = sys.stdin.readline
 
-N = int(input())
-a = 1
-b = 1
+input = sys.stdin.readline
+n = int(input())
 ans = 0
-while True:
-    N = N-2*a
-    if N < 3:
-        break
-    while True:
-        if N < 2*b+2:
-            break
-        ans += 1
-        b += 1
-    N = N+2*a
-    a += 1
-    b = 1
+for i in range(1,n):
+    for j in range(1,n):
+        for k in range(1,n):
+            if i+j+k == n:
+                    if k%2 == 0 and i >= j+2:
+                        ans += 1
 print(ans)
+
+
+
+
+
+
+
+
+
+
+
+
