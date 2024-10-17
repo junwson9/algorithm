@@ -1,10 +1,12 @@
 import sys
+
 input = sys.stdin.readline
-n, k = map(int, input().split())
+N,K = map(int, input().split())
 lst = list(map(int, input().split()))
-sm = sum(lst[:k])
-ans = [sm]
-for i in range(n-k):
-    sm = sm - lst[i] + lst[i+k]
-    ans.append(sm)
-print(max(ans))
+prefix = [0]*(N-K+1)
+prefix[0] = sum(lst[:K])
+
+for i in range(1,N-K+1):
+    prefix[i] = prefix[i-1] + lst[i+K-1] - lst[i-1]
+print(max(prefix))
+
