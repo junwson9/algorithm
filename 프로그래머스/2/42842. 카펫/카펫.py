@@ -1,17 +1,13 @@
 def solution(brown, yellow):
-    s = 1
-    e = yellow
+    # 조건은 (가로+2)*2+(세로*2) 브라운이되어야함
+    
     answer = []
-    rlt = []
-    while True:
-        if s > e:
-            break
-        if yellow % s == 0:
-            tmp = (s+2)*2 + e*2
-            if tmp == brown:
-                answer += [s+2,e+2]
+    for i in range(1,yellow+1):
+        if yellow%i == 0:
+            if (i+2)*2+(yellow//i)*2 == brown:
+                answer.append(i+2)
+                answer.append(yellow//i+2)
                 break
-        s += 1
-        e = yellow//s
     answer.sort(reverse=True)
+
     return answer
