@@ -1,18 +1,30 @@
-from itertools import permutations
+
 def solution(k, dungeons):
-    lst = [i for i in range(len(dungeons))]
-    order_lst = list(permutations(lst,len(lst)))
-    mx = 0
-    for order in order_lst:
-        tmp_k = k
-        tmp = 0
-        for n in order:
-            if tmp_k >= dungeons[n][0]:
-                tmp_k -= dungeons[n][1]
-                tmp += 1
-            else:
-                continue
-        if tmp >= mx:
-            mx = tmp
-            
+    cnt_arr = [n for n in range(len(dungeons))]
+    v = [0]*len(cnt_arr)
+    global mx
+    mx = -1
+    def dfs(n,tmp):
+        global mx
+        if n == len(dungeons):
+            tmp_k = k
+            cnt = 0
+            for i in range(len(dungeons)):
+                if tmp_k < dungeons[tmp[i]][0]:
+                    break
+                tmp_k -= dungeons[tmp[i]][1]
+                cnt += 1
+                
+            if cnt >= mx:
+                mx = cnt
+            return
+        
+        for i in range(len(cnt_arr)):
+            if v[i] == 0:
+                v[i] = 1
+                dfs(n+1,tmp+[cnt_arr[i]])
+                v[i] = 0
+    
+    dfs(0,[])
+    
     return mx
