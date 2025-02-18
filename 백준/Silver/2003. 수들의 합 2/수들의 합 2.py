@@ -1,21 +1,23 @@
 import sys
+
 input = sys.stdin.readline
-N, M = map(int, input().split())
-lst = list(map(int, input().split()))
-s = e = 0
+
+n,m = map(int,input().split())
+lst = list(map(int,input().split()))
+
+s=0
+e=1
 ans = 0
-total = lst[0]
-while True:
-    if total < M:
+while s<=e and e<=n:
+    sm = 0
+    for i in range(s,e):
+        sm += lst[i]
+    if sm > m:
+        s += 1
+    elif sm < m:
         e += 1
-        if e >= N:
-            break
-        total += lst[e]
-    elif total == M:
-        ans += 1
-        total -= lst[s]
-        s += 1
     else:
-        total -= lst[s]
-        s += 1
+        e += 1
+        ans += 1
+
 print(ans)
