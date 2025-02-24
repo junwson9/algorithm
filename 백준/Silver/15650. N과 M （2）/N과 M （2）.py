@@ -1,16 +1,15 @@
-def dfs(n,tmp,idx):
+import sys
+
+input = sys.stdin.readline
+
+N,M = map(int,input().split())
+
+def dfs(n,idx,tmp):
     if n == M:
-        ans.append(tmp)
+        print(*tmp)
         return
 
-    for i in range(idx,N):
-        dfs(n+1,tmp+[lst[i]],i+1)
+    for i in range(idx,N+1):
+        dfs(n+1,i+1,tmp+[i])
 
-
-N, M = map(int, input().split())
-lst = [i for i in range(1,N+1)]
-ans = []
-tmp = []
-dfs(0,tmp,0)
-for lst in ans:
-    print(*lst)
+dfs(0,1,[])
