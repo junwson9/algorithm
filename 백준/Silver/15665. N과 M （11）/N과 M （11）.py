@@ -1,16 +1,20 @@
 import sys
+
 input = sys.stdin.readline
-N,M = map(int, input().split())
-lst = sorted(list(map(int, input().split())))
-lst = sorted(list(set(lst)))
-N = len(lst)
+
+N,M = map(int,input().split())
+lst = sorted(list(map(int,input().split())))
+
 def dfs(n,tmp):
     if n == M:
         print(*tmp)
         return
 
+    prev = 0
+
     for i in range(N):
-        tmp.append(lst[i])
-        dfs(n+1,tmp)
-        tmp.pop()
+        if lst[i] != prev:
+            prev = lst[i]
+            dfs(n+1,tmp+[lst[i]])
+
 dfs(0,[])
