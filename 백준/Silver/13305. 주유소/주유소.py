@@ -7,11 +7,12 @@ total = sum(road)
 price = list(map(int,input().split()))
 ans = 0
 i = 0
-for j in range(i+1,len(price)-1):
+for j in range(i+1,len(price)):
+
     if price[i] <= price[j]:
         ans += price[i]*road[j-1]
-        continue
-    ans += sum(road[i:j])*price[i]
-    i = j
+    else:
+        ans += price[i]*road[j-1]
+        i = j
 
-print(ans + price[i]*road[-1])
+print(ans )
