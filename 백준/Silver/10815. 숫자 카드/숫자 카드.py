@@ -1,27 +1,29 @@
 import sys
-
 input = sys.stdin.readline
 
 N = int(input())
-lst = list(map(int,input().split()))
-lst.sort()
+cards = list(map(int,input().split()))
 M = int(input())
-find = list(map(int,input().split()))
+lst = list(map(int,input().split()))
+
+cards.sort()
 
 
-for num in find:
+rlt = []
+
+for i in range(M):
     s = 0
     e = N-1
-    ans = 0
+    find = lst[i]
+    answer = 0
     while s<=e:
         mid = (s+e)//2
-        if lst[mid] < num:
+        if cards[mid] < find:
             s = mid+1
-        elif lst[mid] > num:
+        elif cards[mid] > find:
             e = mid-1
         else:
-            ans = 1
+            answer = 1
             break
-    print(ans,end=" ")
-
-
+    rlt.append(answer)
+print(*rlt)
