@@ -7,9 +7,8 @@ let e = 0;
 let sm = 0;
 let cnt = 0;
 
-while (true) {
+while (e<= N) {
   if (sm < M) {
-    if (e === N) break; // ✅ 범위 초과 방지
     sm += lst[e++];
   } else if (sm > M) {
     sm -= lst[s++];
