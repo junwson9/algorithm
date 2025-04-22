@@ -3,21 +3,19 @@ const [N, M] = input[0].split(" ").map(Number);
 const lst = input[1].split(" ").map(Number);
 
 let s = 0;
-let e = 1;
+let e = 0;
+let sm = 0;
 let cnt = 0;
 
-while (e <= N && s <= e) {
-  let sm = 0;
-  for (let i = s; i < e; i++) {
-    sm += lst[i];
-  }
+while (true) {
   if (sm < M) {
-    e += 1;
+    if (e === N) break; // ✅ 범위 초과 방지
+    sm += lst[e++];
   } else if (sm > M) {
-    s += 1;
+    sm -= lst[s++];
   } else {
-    cnt += 1;
-    e += 1;
+    cnt++;
+    sm -= lst[s++];
   }
 }
 console.log(cnt);
