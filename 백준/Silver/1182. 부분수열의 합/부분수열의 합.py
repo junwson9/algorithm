@@ -1,20 +1,23 @@
 import sys
 input = sys.stdin.readline
-N,S = map(int, input().split())
-lst = list(map(int, input().split()))
+sys.setrecursionlimit(10**5)
+N,S = map(int,input().split())
+lst = list(map(int,input().split()))
 ans = 0
-tmp = []
-def dfs(n,sm,idx,cnt):
+
+
+def dfs(n,sm):
     global ans
-    if n == cnt:
+    if n == N:
         if sm == S:
             ans += 1
         return
 
-    for i in range(idx,N):
-        dfs(n+1,sm+lst[i],i+1,cnt)
+    dfs(n+1,sm+lst[n])
+    dfs(n+1,sm)
 
+if S == 0:
+    ans -= 1
 
-for i in range(1,N+1):
-    dfs(0,0,0,i)
+dfs(0,0)
 print(ans)
