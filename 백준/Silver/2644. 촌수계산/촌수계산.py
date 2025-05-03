@@ -1,29 +1,33 @@
-from collections import deque
-def bfs(s,e):
-    v[s] = 1
-    q = deque()
-    q.append(s)
-    while q:
-        t = q.popleft()
-        if t == e:
-            return v[t]-1
-        for i in adjL[t]:
-            if v[i] == 0:
-                q.append(i)
-                v[i] = v[t]+1
-    return -1
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10**7)
+N = int(input())
+s,e = map(int, input().split())
+M = int(input())
+adjL = [[] for _ in range(N+1)]
+for _ in range(M):
+    x,y = map(int, input().split())
+    adjL[x].append(y)
+    adjL[y].append(x)
+v = [False]*(N+1)
+ans = []
+def dfs(n,cnt):
+    if n == e:
+        ans.append(cnt)
+        return
+    v[n] = True
+    for i in adjL[n]:
+        if v[i]:
+            continue
+        dfs(i,cnt+1)
+
+
+dfs(s,0)
+if len(ans):
+    print(*ans)
+else:
+    print(-1)
 
 
 
 
-
-n = int(input())
-p1, p2 = map(int, input().split())
-m = int(input())
-adjL = [[] for _ in range(n+1)]
-v = [0]*(n+1)
-for _ in range(m):
-    p, c = map(int, input().split())
-    adjL[p].append(c)
-    adjL[c].append(p)
-print(bfs(p1,p2))
