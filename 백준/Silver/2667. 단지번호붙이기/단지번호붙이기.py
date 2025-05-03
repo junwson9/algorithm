@@ -1,32 +1,30 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(10**7)
+sys.setrecursionlimit(10**5)
 N = int(input())
-arr = [list(input()) for _ in range(N)]
+arr = [list(map(int,input().strip())) for _ in range(N)]
 v = [[False]*N for _ in range(N)]
-di = [1,0,-1,0]
-dj = [0,1,0,-1]
-
 def dfs(ci,cj):
-    global cnt
+    global tmp
     v[ci][cj] = True
-    cnt += 1
-    for k in range(4):
-        ni = ci+di[k]
-        nj = cj+dj[k]
-        if 0<=ni<N and 0<=nj<N and not v[ni][nj] and arr[ni][nj] == '1':
-            dfs(ni,nj)
+    tmp += 1
+    for di,dj in ((1,0),(0,1),(-1,0),(0,-1)):
+        ni,nj = ci+di,cj+dj
+        if 0<=ni<N and 0<=nj<N:
+            if not v[ni][nj] and arr[ni][nj]:
+                dfs(ni,nj)
+    return tmp
 
-    return cnt
-rlt = 0
-lst = []
+
+cnt = 0
+rlt = []
 for i in range(N):
     for j in range(N):
-        if arr[i][j] == '1' and not v[i][j]:
-            cnt = 0
-            lst.append(dfs(i,j))
-            rlt += 1
-print(rlt)
-lst.sort()
-for n in lst:
+        if not v[i][j] and arr[i][j]:
+            tmp = 0
+            rlt.append(dfs(i,j))
+            cnt += 1
+rlt.sort()
+print(cnt)
+for n in rlt:
     print(n)
