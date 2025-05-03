@@ -1,24 +1,22 @@
 import sys
-
 input = sys.stdin.readline
+sys.setrecursionlimit(10**5)
 N,M = map(int,input().split())
-adjL = [[] for _ in range(N+1)]
+graph = [[] for _ in range(N+1)]
 for _ in range(M):
-    s,e = map(int, input().split())
-    adjL[s].append(e)
-    adjL[e].append(s)
-
+    u,v = map(int,input().split())
+    graph[u].append(v)
+    graph[v].append(u)
+v = [False]*(N+1)
+def dfs(cur):
+    v[cur] = True
+    for nxt in graph[cur]:
+        if not v[nxt]:
+            dfs(nxt)
 
 ans = 0
-visited = [0]*(N+1)
-def dfs(n):
-    visited[n] = 1
-    for v in adjL[n]:
-        if visited[v] == 0:
-            dfs(v)
-
 for i in range(1,N+1):
-    if visited[i] == 1:
+    if v[i]:
         continue
     dfs(i)
     ans += 1
