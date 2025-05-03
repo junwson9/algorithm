@@ -1,29 +1,28 @@
 import sys
-
 input = sys.stdin.readline
-
-N = int(input())
-M = int(input())
-adjL = [[] for _ in range(N+1)]
-
-for _ in range(M):
+sys.setrecursionlimit(10**5)
+n = int(input())
+m = int(input())
+graph = [[] for _ in range(n+1)]
+for _ in range(m):
     s,e = map(int,input().split())
-    adjL[s].append(e)
-    adjL[e].append(s)
+    graph[s].append(e)
+    graph[e].append(s)
+v = [False]*(n+1)
 
-visited = [0]*(N+1)
+def dfs(cur):
+    v[cur] = True
+    for nxt in graph[cur]:
+        if not v[nxt]:
+            dfs(nxt)
 
-def dfs(n):
 
-    for v in adjL[n]:
-        if not visited[v]:
-            visited[v] = 1
-            dfs(v)
 dfs(1)
-cnt = 0
-for i in range(2,N+1):
-    if visited[i]:
-        cnt += 1
+ans = 0
+for i in range(2,n+1):
+    if v[i]:
+        ans += 1
+print(ans)
 
 
-print(cnt)
+
