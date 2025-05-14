@@ -1,27 +1,26 @@
 import sys
+
 input = sys.stdin.readline
 N = int(input())
-lst = [0]*N
 ans = 0
+v = [0]*N
 
-def check(row):
-    for n in range(row):
-        if lst[row] == lst[n] or abs(lst[n]-lst[row]) == row-n:
+def check(n):
+    for i in range(n):
+        if v[i] == v[n] or abs(v[i]-v[n]) == n-i:
             return False
     return True
 
 
-
-def dfs(row):
+def dfs(n):
     global ans
-    if row == N:
+    if n == N:
         ans += 1
         return
 
-    for col in range(N):
-        lst[row] = col
-        if check(row):
-            dfs(row+1)
-
+    for i in range(N):
+        v[n] = i
+        if check(n):
+            dfs(n+1)
 dfs(0)
 print(ans)
