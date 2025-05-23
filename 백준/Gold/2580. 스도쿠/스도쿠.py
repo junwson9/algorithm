@@ -1,46 +1,50 @@
 import sys
+
 input = sys.stdin.readline
-arr = [list(map(int ,input().split())) for _ in range(9)]
+arr = [list(map(int,input().split())) for _ in range(9)]
 N = 0
-tmp = []
+lst = []
 for i in range(9):
     for j in range(9):
         if arr[i][j] == 0:
-            N += 1
-            tmp.append((i,j))
+            N+=1
+            lst.append([i,j])
 
-def check1(j,n):
-    for k in range(9):
-        if n == arr[k][j]:
+def chk1(row,n):
+    for col in range(9):
+        if arr[row][col] == n:
             return False
     return True
 
-def check2(i,n):
-    for k in range(9):
-        if n == arr[i][k]:
+def chk2(col,n):
+    for row in range(9):
+        if arr[row][col] == n:
             return False
     return True
 
-def check3(i,j,n):
-    i = i//3*3
-    j = j//3*3
-    for x in range(3):
-        for y in range(3):
-            if arr[i+x][j+y] == n:
+def chk3(row,col,n):
+    row = row//3*3
+    col = col//3*3
+    for i in range(3):
+        for j in range(3):
+            if arr[row+i][col+j] == n:
                 return False
     return True
 
 def dfs(n):
     if n == N:
-        for lst in arr:
-            print(*lst)
+        for l in arr:
+            print(*l)
         exit(0)
-    i = tmp[n][0]
-    j = tmp[n][1]
+
+    row = lst[n][0]
+    col = lst[n][1]
     for num in range(1,10):
-        if check1(j,num) and check2(i,num) and check3(i,j,num):
-            arr[i][j] = num
+        if chk1(row,num) and chk2(col,num) and chk3(row,col,num):
+            arr[row][col] =  num
             dfs(n+1)
-            arr[i][j] = 0
+            arr[row][col] = 0
+
 dfs(0)
+
 
